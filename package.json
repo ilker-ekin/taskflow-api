@@ -1,0 +1,20 @@
+{
+  "name": "taskflow-api",
+  "version": "1.0.0",
+  "description": "TaskFlow — Görev ve Proje Yönetim Sistemi REST API",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "seed": "node scripts/seed.js"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "author": "Ilker Ekin Erdogdu",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
