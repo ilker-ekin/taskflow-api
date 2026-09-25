@@ -1,0 +1,15 @@
+# Local AI assistant notes (not part of the submission)
+CLAUDE/
+
+# Dependencies
+node_modules/
+
+# Runtime files
+logs/
+data/tasks.json
+
+# Environment
+.env
+
+# OS
+.DS_Store
