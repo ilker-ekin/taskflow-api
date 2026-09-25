@@ -1,0 +1,82 @@
+[
+  {
+    "id": "3f1c2a9e-7b4d-4c8a-9e21-5d6f7a8b9c01",
+    "title": "Giriş sayfası tasarımını hazırla",
+    "description": "Kullanıcı giriş ekranı için masaüstü ve mobil tasarımları Figma üzerinde hazırla.",
+    "status": "completed",
+    "priority": "high",
+    "assignee": "Ayşe Yılmaz",
+    "createdAt": "2026-09-01T09:00:00.000Z",
+    "updatedAt": "2026-09-05T14:30:00.000Z"
+  },
+  {
+    "id": "8a2d4e6f-1c3b-4a5d-8e7f-9a0b1c2d3e02",
+    "title": "Veritabanı yedekleme betiği yaz",
+    "description": "Her gece 02:00'de çalışacak otomatik yedekleme betiğini hazırla.",
+    "status": "in-progress",
+    "priority": "high",
+    "assignee": "Mehmet Kaya",
+    "createdAt": "2026-09-03T10:15:00.000Z",
+    "updatedAt": "2026-09-10T08:45:00.000Z"
+  },
+  {
+    "id": "c4e6a8b0-2d4f-4b6a-8c0e-1f3a5b7c9d03",
+    "title": "Müşteri geri bildirim formunu güncelle",
+    "description": "Forma memnuniyet puanı alanı ekle ve zorunlu alanları gözden geçir.",
+    "status": "pending",
+    "priority": "medium",
+    "assignee": "Zeynep Demir",
+    "createdAt": "2026-09-05T11:20:00.000Z",
+    "updatedAt": "2026-09-05T11:20:00.000Z"
+  },
+  {
+    "id": "5b7d9f1a-3e5c-4d7e-9f1a-2b4c6d8e0f04",
+    "title": "API dokümantasyonunu tamamla",
+    "description": "Tüm uç noktalar için örnek istek ve yanıtları dokümana ekle.",
+    "status": "pending",
+    "priority": "low",
+    "assignee": "Can Öztürk",
+    "createdAt": "2026-09-08T13:00:00.000Z",
+    "updatedAt": "2026-09-08T13:00:00.000Z"
+  },
+  {
+    "id": "e9f1b3d5-4a6c-4e8a-a0b2-3c5d7e9f1a05",
+    "title": "Ödeme modülündeki hatayı düzelt",
+    "description": "Kredi kartı ile ödemede tutarın iki kez çekilmesine neden olan hatayı incele ve düzelt.",
+    "status": "in-progress",
+    "priority": "high",
+    "assignee": "Ayşe Yılmaz",
+    "createdAt": "2026-09-12T09:30:00.000Z",
+    "updatedAt": "2026-09-15T16:10:00.000Z"
+  },
+  {
+    "id": "1d3f5b7d-5c7e-4f9b-b1c3-4d6e8f0a2b06",
+    "title": "Sprint planlama toplantısını organize et",
+    "description": "Ekip üyelerine davet gönder ve gündem maddelerini hazırla.",
+    "status": "completed",
+    "priority": "medium",
+    "assignee": "Elif Şahin",
+    "createdAt": "2026-09-14T08:00:00.000Z",
+    "updatedAt": "2026-09-16T10:00:00.000Z"
+  },
+  {
+    "id": "7a9c1e3f-6d8f-4a0c-c2d4-5e7f9a1b3c07",
+    "title": "Sunucu izleme panelini kur",
+    "description": "",
+    "status": "pending",
+    "priority": "medium",
+    "assignee": "Mehmet Kaya",
+    "createdAt": "2026-09-18T15:45:00.000Z",
+    "updatedAt": "2026-09-18T15:45:00.000Z"
+  },
+  {
+    "id": "b2d4f6a8-7e9a-4b1d-d3e5-6f8a0b2c4d08",
+    "title": "Birim testleri için eğitim oturumu düzenle",
+    "description": "Yeni katılan geliştiriciler için yarım günlük eğitim oturumu planla.",
+    "status": "pending",
+    "priority": "low",
+    "assignee": "Zeynep Demir",
+    "createdAt": "2026-09-20T12:00:00.000Z",
+    "updatedAt": "2026-09-20T12:00:00.000Z"
+  }
+]
