@@ -204,10 +204,6 @@ taskflow-api/
 └── README.md
 ```
 
-## Web Arayüzü
-
-Aynı veri modelini kullanan ayrı bir web arayüzü projesi: [ilker-ekin/taskflow-web](https://github.com/ilker-ekin/taskflow-web)
-
 ## Geliştirici
 
 İlker Ekin Erdoğdu — [@ilker-ekin](https://github.com/ilker-ekin)
