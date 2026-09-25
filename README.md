@@ -1,89 +1,91 @@
-# TaskFlow API — Görev ve Proje Yönetim Sistemi
+# TaskFlow API — Task and Project Management System
 
-TaskFlow, bir yazılım şirketinin görevlerini, projelerini ve çalışan sorumluluklarını takip etmesi için geliştirilmiş bir **REST API**'dir. Görev oluşturma, görevleri çalışanlara atama, durum takibi ve önceliklendirme desteklenir.
+TaskFlow is a **REST API** that helps a software company track its tasks, projects and employee responsibilities. It supports creating tasks, assigning them to employees, tracking their status and setting priorities.
 
-TNC Group Node.js Backend eğitimi bitirme projesidir. Proje tanıtım dokümanı: [docs/PROJE_TANITIM.md](docs/PROJE_TANITIM.md)
+This is the capstone project of the TNC Group Node.js Backend training. Project introduction document (in Turkish): [docs/PROJE_TANITIM.md](docs/PROJE_TANITIM.md)
 
-## Özellikler
+> **Note:** The API's error and info messages are in Turkish. The example responses below are shown exactly as the API returns them.
 
-**Zorunlu**
+## Features
 
-- ✅ Görev ekleme, listeleme, detay görüntüleme, güncelleme ve silme (CRUD)
-- ✅ Express Router ile katmanlı klasör yapısı (routes → controllers → services)
-- ✅ Logger middleware: her isteğin method, endpoint ve zaman bilgisi konsola ve `logs/requests.log` dosyasına yazılır
-- ✅ Postman koleksiyonu ve test ekran görüntüleri
+**Required**
 
-**⭐ Ekstra**
+- ✅ Create, list, view, update and delete tasks (CRUD)
+- ✅ Layered folder structure with Express Router (routes → controllers → services)
+- ✅ Logger middleware: the method, endpoint and timestamp of every request are written to the console and to `logs/requests.log`
+- ✅ Postman collection and test screenshots
 
-- ⭐ Doğrulama (validation) middleware'i: `title`, `description`, `priority`, `assignee` alanları kontrol edilir; hatalı veride **400** ve Türkçe hata mesajı döner
-- ⭐ Filtreleme: `GET /tasks?status=completed`, `GET /tasks?priority=high` (birlikte kullanılabilir)
-- ⭐ Raporlama: tamamlanan görevler, bekleyen görevler ve özet istatistikler
+**⭐ Extra**
 
-## Teknolojiler
+- ⭐ Validation middleware: checks `title`, `description`, `priority` and `assignee`; invalid data returns **400** with a clear error message
+- ⭐ Filtering: `GET /tasks?status=completed`, `GET /tasks?priority=high` (can be combined)
+- ⭐ Reports: completed tasks, pending tasks and summary statistics
+
+## Tech Stack
 
 - Node.js (24 LTS), ES Modules
 - Express 5
-- Veriler JSON dosyasında tutulur (`data/tasks.json`), veritabanı gerekmez
-- Postman (API testleri)
+- Data is stored in a JSON file (`data/tasks.json`), no database needed
+- Postman (API tests)
 
-## Kurulum ve Çalıştırma
+## Installation and Running
 
-Gereksinim: [Node.js](https://nodejs.org/) 24 veya üzeri.
+Requirement: [Node.js](https://nodejs.org/) 24 or later.
 
-1. Depoyu klonlayın:
+1. Clone the repository:
    ```bash
    git clone https://github.com/ilker-ekin/taskflow-api.git
    cd taskflow-api
    ```
-2. Bağımlılıkları yükleyin:
+2. Install the dependencies:
    ```bash
    npm install
    ```
-3. Sunucuyu başlatın:
+3. Start the server:
    ```bash
    npm start
    ```
-4. API `http://localhost:3000` adresinde çalışır. Tarayıcıda açarak kontrol edebilirsiniz.
+4. The API runs at `http://localhost:3000`. You can open it in a browser to check that it is running.
 
-İlk çalıştırmada `data/tasks.json`, örnek verilerden (`data/tasks.seed.json`) otomatik oluşturulur.
+On the first run, `data/tasks.json` is created automatically from the sample data (`data/tasks.seed.json`).
 
-| Komut | Açıklama |
+| Command | Description |
 |---|---|
-| `npm start` | Sunucuyu başlatır |
-| `npm run dev` | Dosya değişikliklerinde sunucuyu otomatik yeniden başlatır |
-| `npm run seed` | Verileri örnek verilere sıfırlar |
+| `npm start` | Starts the server |
+| `npm run dev` | Restarts the server automatically when files change |
+| `npm run seed` | Resets the data to the sample data |
 
-Farklı port için: `PORT=4000 npm start`
+To use a different port: `PORT=4000 npm start`
 
-## Veri Modeli
+## Data Model
 
-| Alan | Tip | Kural |
+| Field | Type | Rule |
 |---|---|---|
-| `id` | string (UUID) | Sunucu tarafından atanır |
-| `title` | string | Zorunlu, 3–120 karakter |
-| `description` | string | İsteğe bağlı, en fazla 1000 karakter |
-| `status` | `pending` \| `in-progress` \| `completed` | Varsayılan `pending` |
-| `priority` | `low` \| `medium` \| `high` | Varsayılan `medium` |
-| `assignee` | string | Zorunlu, 2–50 karakter (çalışan adı) |
-| `createdAt`, `updatedAt` | ISO tarih | Sunucu tarafından atanır |
+| `id` | string (UUID) | Set by the server |
+| `title` | string | Required, 3–120 characters |
+| `description` | string | Optional, up to 1000 characters |
+| `status` | `pending` \| `in-progress` \| `completed` | Default `pending` |
+| `priority` | `low` \| `medium` \| `high` | Default `medium` |
+| `assignee` | string | Required, 2–50 characters (employee name) |
+| `createdAt`, `updatedAt` | ISO date | Set by the server |
 
-## Endpoint'ler
+## Endpoints
 
-| Method | Endpoint | Açıklama | Başarılı yanıt |
+| Method | Endpoint | Description | Success response |
 |---|---|---|---|
-| POST | `/tasks` | Yeni görev ekler | 201 |
-| GET | `/tasks` | Tüm görevleri listeler | 200 |
-| GET | `/tasks/:id` | Görev detayını getirir | 200 / 404 |
-| PUT | `/tasks/:id` | Görevi günceller | 200 / 404 |
-| DELETE | `/tasks/:id` | Görevi siler | 200 / 404 |
-| GET | `/tasks?status=...&priority=...` | ⭐ Filtreli listeleme | 200 |
-| GET | `/reports/completed` | ⭐ Tamamlanan görevler | 200 |
-| GET | `/reports/pending` | ⭐ Bekleyen görevler | 200 |
-| GET | `/reports/summary` | ⭐ Durum ve önceliğe göre özet | 200 |
+| POST | `/tasks` | Creates a new task | 201 |
+| GET | `/tasks` | Lists all tasks | 200 |
+| GET | `/tasks/:id` | Returns a task's details | 200 / 404 |
+| PUT | `/tasks/:id` | Updates a task | 200 / 404 |
+| DELETE | `/tasks/:id` | Deletes a task | 200 / 404 |
+| GET | `/tasks?status=...&priority=...` | ⭐ Filtered list | 200 |
+| GET | `/reports/completed` | ⭐ Completed tasks | 200 |
+| GET | `/reports/pending` | ⭐ Pending tasks | 200 |
+| GET | `/reports/summary` | ⭐ Summary by status and priority | 200 |
 
-### Örnek istek ve yanıtlar
+### Example requests and responses
 
-**Görev ekleme** — `POST /tasks`
+**Create a task** — `POST /tasks`
 
 ```json
 {
@@ -94,7 +96,7 @@ Farklı port için: `PORT=4000 npm start`
 }
 ```
 
-Yanıt `201 Created`:
+Response `201 Created`:
 
 ```json
 {
@@ -109,21 +111,21 @@ Yanıt `201 Created`:
 }
 ```
 
-**Görev güncelleme** — `PUT /tasks/:id` (yalnızca değişecek alanlar gönderilir)
+**Update a task** — `PUT /tasks/:id` (send only the fields you want to change)
 
 ```json
 { "status": "completed" }
 ```
 
-Yanıt `200 OK`: güncellenmiş görev nesnesi.
+Response `200 OK`: the updated task object.
 
-**Görev silme** — `DELETE /tasks/:id`, yanıt `200 OK`:
+**Delete a task** — `DELETE /tasks/:id`, response `200 OK`:
 
 ```json
 { "message": "'Mobil uygulama için bildirim altyapısını kur' başlıklı görev silindi." }
 ```
 
-**Özet rapor** — `GET /reports/summary`, yanıt `200 OK`:
+**Summary report** — `GET /reports/summary`, response `200 OK`:
 
 ```json
 {
@@ -133,21 +135,21 @@ Yanıt `200 OK`: güncellenmiş görev nesnesi.
 }
 ```
 
-### Hata yanıtları
+### Error responses
 
-Tüm hatalar `{ "error": "..." }` biçiminde döner.
+All errors are returned as `{ "error": "..." }`.
 
-| Durum | Örnek |
+| Status | Example |
 |---|---|
-| 400 — geçersiz veri | `{ "error": "Geçersiz görev verisi.", "details": ["'title' 3-120 karakter arasında olmalıdır.", "'assignee' alanı zorunludur."] }` |
-| 400 — bozuk JSON | `{ "error": "İstek gövdesi geçerli bir JSON değil." }` |
-| 404 — görev yok | `{ "error": "'abc' kimlikli görev bulunamadı." }` |
-| 404 — adres yok | `{ "error": "İstenen adres bulunamadı: GET /nope" }` |
-| 500 — sunucu hatası | `{ "error": "Sunucuda beklenmeyen bir hata oluştu." }` |
+| 400 — invalid data | `{ "error": "Geçersiz görev verisi.", "details": ["'title' 3-120 karakter arasında olmalıdır.", "'assignee' alanı zorunludur."] }` |
+| 400 — malformed JSON | `{ "error": "İstek gövdesi geçerli bir JSON değil." }` |
+| 404 — task not found | `{ "error": "'abc' kimlikli görev bulunamadı." }` |
+| 404 — route not found | `{ "error": "İstenen adres bulunamadı: GET /nope" }` |
+| 500 — server error | `{ "error": "Sunucuda beklenmeyen bir hata oluştu." }` |
 
 ## Logger Middleware
 
-`src/middlewares/logger.js` her isteği, yanıt gönderildikten sonra **method, endpoint, zaman damgası**, durum kodu ve süre bilgisiyle konsola yazar ve aynı satırı `logs/requests.log` dosyasına ekler (klasör yoksa oluşturulur).
+`src/middlewares/logger.js` logs every request after the response is sent, with its **method, endpoint and timestamp** (plus status code and duration). It prints the line to the console and appends the same line to `logs/requests.log` (the folder is created if missing).
 
 ```
 [2026-09-25T22:24:35.411Z] POST /tasks 201 - 2ms
@@ -158,52 +160,52 @@ Tüm hatalar `{ "error": "..." }` biçiminde döner.
 [2026-09-25T22:24:35.498Z] DELETE /tasks/ddfbfe5e-a247-41b5-8d4c-e15bbc5766be 200 - 1ms
 ```
 
-## Postman ile Test
+## Testing with Postman
 
-1. Sunucuyu `npm start` ile başlatın.
-2. Postman'de **Import** → `postman/TaskFlow.postman_collection.json` dosyasını seçin.
-3. Koleksiyon değişkeni `baseUrl` = `http://localhost:3000` olarak tanımlıdır.
-4. **CRUD** klasöründeki istekleri sırayla çalıştırın. "Görev Ekle" oluşturulan görevin id değerini `taskId` değişkenine kaydeder; sonraki istekler bu değeri kullanır.
-5. **Ekstra** klasöründe doğrulama hatası, filtreleme ve rapor istekleri bulunur.
+1. Start the server with `npm start`.
+2. In Postman, click **Import** and select `postman/TaskFlow.postman_collection.json`.
+3. The collection variable `baseUrl` is set to `http://localhost:3000`.
+4. Run the requests in the **CRUD** folder in order. "Görev Ekle" (Create Task) saves the new task's id to the `taskId` variable, and the following requests use it.
+5. The **Ekstra** (Extra) folder contains the validation error, filtering and report requests.
 
-Her istekte durum kodunu kontrol eden testler vardır (Test Results sekmesi). Tüm koleksiyon **Run collection** ile tek seferde çalıştırılabilir.
+Every request has tests that check the status code (Test Results tab). You can run the whole collection at once with **Run collection**.
 
-## Ekran Görüntüleri
+## Screenshots
 
-| İstek | Ekran görüntüsü |
+| Request | Screenshot |
 |---|---|
-| Görev Ekle — `POST /tasks` | ![Görev ekleme](docs/screenshots/01-create.png) |
-| Görevleri Listele — `GET /tasks` | ![Görev listeleme](docs/screenshots/02-list.png) |
-| Görev Detayı — `GET /tasks/:id` | ![Görev detayı](docs/screenshots/03-detail.png) |
-| Görev Güncelle — `PUT /tasks/:id` | ![Görev güncelleme](docs/screenshots/04-update.png) |
-| Görev Sil — `DELETE /tasks/:id` | ![Görev silme](docs/screenshots/05-delete.png) |
-| ⭐ Doğrulama hatası — 400 | ![Doğrulama hatası](docs/screenshots/06-validation-400.png) |
-| Logger konsol çıktısı | ![Logger çıktısı](docs/screenshots/07-logger-console.png) |
+| Create Task — `POST /tasks` | ![Create task](docs/screenshots/01-create.png) |
+| List Tasks — `GET /tasks` | ![List tasks](docs/screenshots/02-list.png) |
+| Task Details — `GET /tasks/:id` | ![Task details](docs/screenshots/03-detail.png) |
+| Update Task — `PUT /tasks/:id` | ![Update task](docs/screenshots/04-update.png) |
+| Delete Task — `DELETE /tasks/:id` | ![Delete task](docs/screenshots/05-delete.png) |
+| ⭐ Validation error — 400 | ![Validation error](docs/screenshots/06-validation-400.png) |
+| Logger console output | ![Logger output](docs/screenshots/07-logger-console.png) |
 
-## Proje Yapısı
+## Project Structure
 
 ```
 taskflow-api/
 ├── data/
-│   └── tasks.seed.json          # Örnek görevler (tasks.json buradan oluşturulur)
+│   └── tasks.seed.json          # Sample tasks (tasks.json is created from this)
 ├── docs/
-│   ├── PROJE_TANITIM.md         # Proje tanıtım dokümanı
-│   └── screenshots/             # Postman ekran görüntüleri
+│   ├── PROJE_TANITIM.md         # Project introduction document
+│   └── screenshots/             # Postman screenshots
 ├── postman/
 │   └── TaskFlow.postman_collection.json
 ├── scripts/
 │   └── seed.js                  # npm run seed
 ├── src/
-│   ├── app.js                   # Express uygulaması: middleware'ler ve route'lar
-│   ├── server.js                # Sunucuyu başlatır
+│   ├── app.js                   # Express app: middlewares and routes
+│   ├── server.js                # Starts the server
 │   ├── routes/                  # task.routes.js, report.routes.js
 │   ├── controllers/             # task.controller.js, report.controller.js
-│   ├── services/                # task.service.js (JSON dosyası okuma/yazma)
+│   ├── services/                # task.service.js (reads/writes the JSON file)
 │   └── middlewares/             # logger.js, validateTask.js, errorHandler.js, notFound.js
 ├── package.json
 └── README.md
 ```
 
-## Geliştirici
+## Author
 
 İlker Ekin Erdoğdu — [@ilker-ekin](https://github.com/ilker-ekin)
